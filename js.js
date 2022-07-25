@@ -1,19 +1,58 @@
-alert("Bienvenido al juego matar zombie! para ganar debes acabar con la vida del zombie")
+alert("Bienvenid@ a la tienda virtual de Bad Bunny")
 
-let zombie = 500
+alert("Contamos con el stock de Remera, Pantalon, Zapatillas")
 
-let dañoUsuario = Number(prompt("Coloque la cantidad de daño a inflingir: "))
+let prenda = prompt("Ingrese la prenda que desea")
+let precio
+let codigo
+let impuestos
+let entrada
 
-zombie = zombie - dañoUsuario
-
-while (zombie > 0){
-    alert("Debes seguir atacando para ganar!!, restan: " + zombie + " de vida.")
-    
-    dañoUsuario = Number(prompt("Coloque la cantidad de daño (entre 100 y 150) a inflingir: "))
-
-    zombie = zombie - dañoUsuario
+function descuento(objeto){
+    return objeto * 0.25
 }
 
-alert("Felicitaciones!!! Usted gano")
+function calcularIva(objeto){
+    return objeto * 1.21
+}
+
+switch (prenda.toLowerCase()){
+    case "remera":
+        precio = 200
+        break
+    case "pantalon":
+        precio = 150
+        break
+    case "zapatillas":
+        precio = 250
+        break 
+    default:
+        alert("No tenemos stock de esa prenda")
+        break
+}
+
+alert(prenda.toLowerCase() + " tiene un costo de $" + precio )
+
+impuestos = prompt("¿Quiere ver el precio final de su producto? (impuestos agregados)")
+
+if (impuestos.toLowerCase() === "si") {
+    entrada = prompt("¿Tiene un codigo de descuento?")
+    if (entrada.toLowerCase() === "si"){
+        for (let i = 0; i < 3; i++){
+            codigo = prompt("Ingrese su codigo de descuento:")
+            if (codigo === "Coder"){
+                alert("Codigo aplicado! el costo final de su prenda es de: $" + (calcularIva(precio) - descuento(precio))) 
+                break
+            } else if (i === 2){
+                alert("Supero la cantidad de intentos de codigo de descuento, El costo final de su prenda sin descuento es de: $" + calcularIva(precio))
+            }
+        }
+    } else{
+        alert("El costo final de su prenda es de: $" + calcularIva(precio))
+    }
+}
+
+alert("Regrese cuando quiera!")
 
 console.log("Fin del programa")
+
