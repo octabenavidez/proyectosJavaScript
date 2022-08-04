@@ -43,13 +43,35 @@ const agregarCarrito = (prenda) => {
     }
 }
 
+const filtrarPorPrecio = (filtro) => {
+    const busqueda = []
+
+    for (const el of mercaderia) {
+    if (el.precio >= filtro){
+            busqueda.push( el )
+        }
+    }
+
+    return busqueda
+}
+
+
+let entrada
+let precios
+
 alert("Bienvenid@ a la tienda virtual de Bad Bunny")
+
+entrada = prompt("¿Quiere filtrar las prendas por precio?")
+
+if (entrada === "si"){
+    precios = prompt("Ingrese el monto minimo que quiere visualizar:")
+    alert("Los productos por arriba del valor indicado son: "+ listaNombres(filtrarPorPrecio(precios)).join(", "))
+}
 
 alert("Contamos con el stock de: " + listaNombres(mercaderia).join(", "))
 
 let carrito = []
 let prenda = agregarCarrito(prompt("Ingrese la prenda que desea: "))
-let entrada
 
 entrada = prompt("¿Quiere comprar otra prenda?")
 
