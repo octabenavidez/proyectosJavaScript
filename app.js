@@ -27,6 +27,7 @@ const listaNombres = (lista) => {
     return prendas
 }
 
+
 const borrarCarrito = (elemento) => {
     let indice = listaNombres(carrito).indexOf(elemento)
 
@@ -90,8 +91,9 @@ if (entrada.toLowerCase() === "si"){
 
 entrada = prompt("¿Desea ver el precio total de sus productos? (Incluye IVA)")
 
+let total = 0
+
 if (entrada.toLowerCase() === "si"){
-    let total = 0
     for (let i = 0; i < carrito.length; i++){
         carrito[i].calcularIva()
         total = total + carrito[i].precio
@@ -101,6 +103,40 @@ if (entrada.toLowerCase() === "si"){
 
 alert("Regrese cuando quiera!")
 
-console.log("Fin del programa")
+const listaPrendas = document.getElementById("tabla")
 
+for (const prenda of carrito) {
+    const tr = document.createElement("tr")
+
+    const tdProducto = document.createElement("td")
+    tdProducto.className = "lista"
+    tdProducto.innerText = prenda.producto
+
+    const tdPrecio = document.createElement("td")
+    tdPrecio.className = "lista"
+    tdPrecio.innerText = "$" + prenda.precio 
+
+    tr.append(tdProducto)
+    tr.append(tdPrecio)
+
+
+    listaPrendas.append(tr)
+}
+
+const trNuevo = document.createElement("tr")
+
+const tdVacio = document.createElement("td")
+tdVacio.className = "precioFinal"
+tdVacio.innerText = "Precio Total:"
+
+const tdPrecio = document.createElement("td")
+tdPrecio.className = "precioFinal"
+tdPrecio.innerText = "$" + total 
+
+trNuevo.append(tdVacio)
+trNuevo.append(tdPrecio)
+
+listaPrendas.append(trNuevo)
+
+console.log("Fin del programa")
 
