@@ -1,3 +1,15 @@
+header{
+    background-color: #f12726;
+}
+
+body{
+    background-image: url(https://worldshottesttour.com/static/df7ee17193510a2cca3f53186f00fe95/ccdb5/BB_BG_2400x3000.webp);
+}
+
+.imagenPrincipal img{
+    width: 50%;
+}
+
 .lista{
     color: green;
     text-transform: capitalize;
@@ -10,4 +22,18 @@
 
 .quitar{
     display: none;
+}
+
+.aniadido{
+    background-color: green;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+}
+
+.botonLink a{
+    text-decoration: none;
+    color: red;    
 }

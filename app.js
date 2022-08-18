@@ -1,8 +1,9 @@
 class Prenda {
-    constructor (id, producto, precio){
+    constructor (id, producto, precio, codigo){
         this.id = id
         this.producto = producto
         this.precio = precio
+        this.codigo = codigo
     }
 
     calcularIva(){
@@ -11,109 +12,112 @@ class Prenda {
 }
 
 const mercaderia = [
-    new Prenda(1, "remera", 200),
-    new Prenda(2, "pantalon", 150),
-    new Prenda(3, "zapatillas", 250),
-    new Prenda(4, "medias", 50),
-    new Prenda(5, "lentes", 75)
+    new Prenda(1, "remera", 200, "A2F3"),
+    new Prenda(3, "buzo", 250, "A89Z"),
+    new Prenda(4, "gorro", 50, "BO90"),
+    new Prenda(5, "gorra", 75, "X214")
 ]
 
-const listaNombres = (lista) => {
-    let prendas = []
-    for (const el of lista){
-        prendas.push(el.producto)
-    }
-
-    return prendas
-}
-
-const borrarCarrito = (elemento) => {
-    let indice = listaNombres(carrito).indexOf(elemento)
-
-    if (indice != -1 ) {
-        carrito.splice(indice, 1)
-    } 
-}
-
-const agregarCarrito = (prenda) => {
-    let indice = listaNombres(mercaderia).indexOf(prenda.toLowerCase())
-
-    if (indice != -1){
-        carrito.push(mercaderia[indice]) 
-    }
-}
-
-const filtrarPorPrecio = (filtro) => {
-    const busqueda = []
-
-    for (const el of mercaderia) {
-    if (el.precio >= filtro){
-            busqueda.push( el )
-        }
-    }
-
-    return busqueda
-}
-
-let entrada
-let precios
-
-alert("Bienvenid@ a la tienda virtual de Bad Bunny")
-
-entrada = prompt("¿Quiere filtrar las prendas por precio?")
-
-if (entrada === "si"){
-    precios = prompt("Ingrese el monto minimo que quiere visualizar:")
-    alert("Los productos por arriba del valor indicado son: "+ listaNombres(filtrarPorPrecio(precios)).join(", "))
-}
-
-alert("Contamos con el stock de: " + listaNombres(mercaderia).join(", "))
-
 let carrito = []
-let prenda = agregarCarrito(prompt("Ingrese la prenda que desea: "))
-
-entrada = prompt("¿Quiere comprar otra prenda?")
-
-while (entrada.toLowerCase() != "no"){
-    prenda = agregarCarrito(prompt("Ingrese la prenda que desea: "))
-    entrada = prompt("¿Quiere comprar otra prenda?")
-}
-
-entrada = prompt("¿Quiere eliminar de su carrito alguna prenda?")
-
-if (entrada.toLowerCase() === "si"){
-    alert("Usted tiene estas prendas: " + listaNombres(carrito).join(", "))
-    prenda = prompt("Ingrese el nombre de la prenda a eliminar: ")
-    borrarCarrito(prenda.toLowerCase())
-} 
-
 let total = 0
 
-for (let i = 0; i < carrito.length; i++){
-    carrito[i].calcularIva()
-    total = total + carrito[i].precio
-}
+const btnGorro = document.querySelector("#botonGorro")
+const btnGorra = document.querySelector("#botonGorra")
+const btnRemera = document.querySelector("#botonRemera")
+const btnBuzo = document.querySelector("#botonBuzo")
 
-alert("Regrese cuando quiera!")
+const listaPrendas = document.querySelector("table")
 
-const listaPrendas = document.getElementById("tabla")
-
-for (const prenda of carrito) {
+function crearEnTabla(pr) {
     const tr = document.createElement("tr")
-
+    
     const tdProducto = document.createElement("td")
-    tdProducto.className = "lista"
-    tdProducto.innerText = prenda.producto
 
     const tdPrecio = document.createElement("td")
-    tdPrecio.className = "lista"
-    tdPrecio.innerText = "$" + prenda.precio 
 
+    tdProducto.className = "lista"
+    tdProducto.innerText = pr.producto
+    
+    tdPrecio.className = "lista"
+    tdPrecio.innerText = "$" + pr.precio 
+    
     tr.append(tdProducto)
     tr.append(tdPrecio)
-
+    
     listaPrendas.append(tr)
-}
+} 
+
+btnGorro.addEventListener("click", () => {
+    let nuevaPrenda = new Prenda(4, "gorro", 50, "I2P1")
+    nuevaPrenda.calcularIva()
+    carrito.push(nuevaPrenda)
+
+    const prodAniadido = document.querySelector("#productoAniadido")
+    prodAniadido.classList.toggle("quitar")
+
+    const ocultarVentana = () => {
+        prodAniadido.className = "aniadido quitar"
+    }
+
+    setTimeout(ocultarVentana, 500)
+
+    crearEnTabla(nuevaPrenda)
+    total = total + nuevaPrenda.precio
+})
+
+btnGorra.addEventListener("click", () => {
+    let nuevaPrenda = new Prenda(5, "gorra", 75, "KAI2")
+    nuevaPrenda.calcularIva()
+    carrito.push(nuevaPrenda)
+
+    const prodAniadido = document.querySelector("#productoAniadido")
+    prodAniadido.classList.toggle("quitar")
+
+    const ocultarVentana = () => {
+        prodAniadido.className = "aniadido quitar"
+    }
+
+    setTimeout(ocultarVentana, 500)
+
+    crearEnTabla(nuevaPrenda)
+    total = total + nuevaPrenda.precio
+})
+
+btnRemera.addEventListener("click", () => {
+    let nuevaPrenda = new Prenda(1, "remera", 200, "ML44")
+    nuevaPrenda.calcularIva()
+    carrito.push(nuevaPrenda)
+
+    const prodAniadido = document.querySelector("#productoAniadido")
+    prodAniadido.classList.toggle("quitar")
+
+    const ocultarVentana = () => {
+        prodAniadido.className = "aniadido quitar"
+    }
+
+    setTimeout(ocultarVentana, 500)
+
+    crearEnTabla(nuevaPrenda)
+    total = total + nuevaPrenda.precio
+})
+
+btnBuzo.addEventListener("click", () => {
+    let nuevaPrenda = new Prenda(3, "buzo", 250, "JU22")
+    nuevaPrenda.calcularIva()
+    carrito.push(nuevaPrenda)
+
+    const prodAniadido = document.querySelector("#productoAniadido")
+    prodAniadido.classList.toggle("quitar")
+
+    const ocultarVentana = () => {
+        prodAniadido.className = "aniadido quitar"
+    }
+
+    setTimeout(ocultarVentana, 500)
+
+    crearEnTabla(nuevaPrenda)
+    total = total + nuevaPrenda.precio
+})
 
 const btnPrecio = document.querySelector("#botonCalculo")
 
@@ -137,5 +141,12 @@ const precioTotal = () => {
 
 btnPrecio.addEventListener("click", precioTotal)
 
-console.log("Fin del programa")
+const btnLink = document.querySelector("#botonLink")
+
+btnLink.addEventListener("click", () => {
+    const prendasJSON = JSON.stringify(carrito)
+    localStorage.setItem("prendas", prendasJSON)
+})
+
+console.log(carrito)
 

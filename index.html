@@ -9,24 +9,98 @@
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <header class="text-center bg-danger p-2">
-        <h2>Merchandising elegido</h2>
+    <header class="sticky-lg-top d-flex justify-content-center">
+      <a href="index.html" class="navbar-brand p-0 m-2"><img src="img/iconitobadbunny.png" alt="Logo BadBunny" width="100px"></a>
     </header>
 
-    <table class="table container">
-        <thead>
-          <tr>
-            <th scope="col">Prenda</th>
-            <th scope="col">Precio</th>
-          </tr>
-        </thead>
-        <tbody id="tabla">
-        </tbody>
-    </table>
+    <main>
+      <section class="imagenPrincipal">
+        <div class="text-center container-xxl">
+            <img src="https://worldshottesttour.com/static/0158a4c798041d8e862deb71db6aa0cd/9d946/BB_Header.webp" class="img-fluid" alt="Logo del Tour de Bad Bunny">
+        </div>
+      </section>
 
-    <div class="d-flex justify-content-center">
-      <button id="botonCalculo" type="button" class="btn btn-info ">Calcular Precio Total</button>
-    </div>
+      <h1 class="text-center">Bienvenid@ a la tienda virtual de Bad Bunny</h1>
+      
+      <div id="productoAniadido" class="aniadido quitar">
+        <h2 class="text-center">Producto Añadido !!</h2>
+      </div>
+
+      <div class="container mb-4">
+        <div class="row">
+          <div class="card m-2" style="width: 18rem;">
+            <img src="https://badbunnymerchshop.com/wp-content/uploads/2022/02/bad-bunny-winter-knit-hat-cotton-cartoon_main-1.jpg" class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+              <h5 class="card-title">Gorro</h5>
+              <p class="card-text">$50</p>
+              <button id="botonGorro" class="btn btn-primary">Agregar al carrito</button>
+            </div>
+          </div>
+          <div class="card m-2" style="width: 18rem;">
+            <img src="https://badbunnymerchshop.com/wp-content/uploads/2021/10/unisex-staple-t-shirt-black-heather-front-61079e3b2b1ee-768x768-1.jpg" class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+              <h5 class="card-title">Remera</h5>
+              <p class="card-text">$200</p>
+              <button id="botonRemera" class="btn btn-primary">Agregar al carrito</button>
+            </div>
+          </div>
+          <div class="card m-2" style="width: 18rem;">
+            <img src="https://badbunnymerchshop.com/wp-content/uploads/2021/10/05b7b40f-07e1-48ed-a2a3-877f8511db7c.jpg" class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+              <h5 class="card-title">Buzo</h5>
+              <p class="card-text">$250</p>
+              <button id="botonBuzo" class="btn btn-primary">Agregar al carrito</button>
+            </div>
+          </div>
+          <div class="card m-2" style="width: 18rem;">
+            <img src="https://badbunnymerchshop.com/wp-content/uploads/2022/02/black_rapper-reggaeton-artist-dad-hat-bad-bunn_variants-0.jpg" class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column align-items-center">
+              <h5 class="card-title">Gorra</h5>
+              <p class="card-text">$75</p>
+              <button id="botonGorra" class="btn btn-primary">Agregar al carrito</button>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <img id="imagen" src="img/carros.png" alt="" width="100px">
+        </button>
+      </div>      
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Carrito</h5>
+              <button id="botonCerrar" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <table class="table container">
+                <thead>
+                  <tr>
+                    <th scope="col">Prenda</th>
+                    <th scope="col">Precio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            </div>
+            <div class="modal-footer">
+              <button id="botonCalculo" type="button" class="btn btn-secondary">Calcular precio total</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="botonLink" class="botonLink d-flex justify-content-center m-3">
+        <button type="button" class="btn btn-primary"><a href="codigos.html">Codigos de Productos</a></button>
+      </div>
+    </main>
     
     <script src="app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
