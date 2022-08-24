@@ -4,6 +4,8 @@ header{
 
 body{
     background-image: url(https://worldshottesttour.com/static/df7ee17193510a2cca3f53186f00fe95/ccdb5/BB_BG_2400x3000.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .imagenPrincipal img{

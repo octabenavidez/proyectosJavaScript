@@ -1,3 +1,5 @@
+// Clase
+
 class Prenda {
     constructor (id, producto, precio, codigo){
         this.id = id
@@ -18,6 +20,51 @@ const mercaderia = [
     new Prenda(5, "gorra", 75, "X214")
 ]
 
+
+// Reconocimiento de usuario
+
+const nomUsuario = document.querySelector("#nombreUsuario")
+const localUsuario = localStorage.getItem("Usuario")
+const submit = document.querySelector("#submit")
+const usuario = document.querySelector("#usuario")
+
+localUsuario === null ? 
+Swal.fire(
+    'Recuerda poner tu nombre de usuario',
+    '',
+    'info'
+)
+: 
+nomUsuario.innerText = "Bienvenido " + localUsuario + " a la página oficial de ventas de Bad Bunny"
+nomUsuario.classList = "text-center container";
+
+submit.addEventListener("click", () =>{
+    const value = usuario.value
+
+    value === "" ? 
+    (Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Escribiste un caracter vacio'
+    }), submit.value = "Reintenta escribir tu nombre", nomUsuario.innerText = "")
+    :
+    Swal.fire({
+        title: '¿Estas seguro de que quieres guardar este nombre?',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          location.reload() 
+        }
+      })  
+
+    localStorage.setItem("Usuario", value)
+})
+
+// Carrito
+
 let carrito = []
 let total = 0
 
@@ -35,11 +82,13 @@ function crearEnTabla(pr) {
 
     const tdPrecio = document.createElement("td")
 
+    const {producto, precio} = pr
+
     tdProducto.className = "lista"
-    tdProducto.innerText = pr.producto
+    tdProducto.innerText = producto
     
     tdPrecio.className = "lista"
-    tdPrecio.innerText = "$" + pr.precio 
+    tdPrecio.innerText = "$" + precio 
     
     tr.append(tdProducto)
     tr.append(tdPrecio)
@@ -48,7 +97,7 @@ function crearEnTabla(pr) {
 } 
 
 btnGorro.addEventListener("click", () => {
-    let nuevaPrenda = new Prenda(4, "gorro", 50, "I2P1")
+    const nuevaPrenda = new Prenda(4, "gorro", 50, "I2P1")
     nuevaPrenda.calcularIva()
     carrito.push(nuevaPrenda)
 
@@ -66,8 +115,9 @@ btnGorro.addEventListener("click", () => {
 })
 
 btnGorra.addEventListener("click", () => {
-    let nuevaPrenda = new Prenda(5, "gorra", 75, "KAI2")
+    const nuevaPrenda = new Prenda(5, "gorra", 75, "KAI2")
     nuevaPrenda.calcularIva()
+    const {precio} = nuevaPrenda
     carrito.push(nuevaPrenda)
 
     const prodAniadido = document.querySelector("#productoAniadido")
@@ -80,12 +130,13 @@ btnGorra.addEventListener("click", () => {
     setTimeout(ocultarVentana, 500)
 
     crearEnTabla(nuevaPrenda)
-    total = total + nuevaPrenda.precio
+    total = total + precio
 })
 
 btnRemera.addEventListener("click", () => {
-    let nuevaPrenda = new Prenda(1, "remera", 200, "ML44")
+    const nuevaPrenda = new Prenda(1, "remera", 200, "ML44")
     nuevaPrenda.calcularIva()
+    const {precio} = nuevaPrenda
     carrito.push(nuevaPrenda)
 
     const prodAniadido = document.querySelector("#productoAniadido")
@@ -98,12 +149,13 @@ btnRemera.addEventListener("click", () => {
     setTimeout(ocultarVentana, 500)
 
     crearEnTabla(nuevaPrenda)
-    total = total + nuevaPrenda.precio
+    total = total + precio
 })
 
 btnBuzo.addEventListener("click", () => {
-    let nuevaPrenda = new Prenda(3, "buzo", 250, "JU22")
+    const nuevaPrenda = new Prenda(3, "buzo", 250, "JU22")
     nuevaPrenda.calcularIva()
+    const {precio} = nuevaPrenda
     carrito.push(nuevaPrenda)
 
     const prodAniadido = document.querySelector("#productoAniadido")
@@ -116,7 +168,7 @@ btnBuzo.addEventListener("click", () => {
     setTimeout(ocultarVentana, 500)
 
     crearEnTabla(nuevaPrenda)
-    total = total + nuevaPrenda.precio
+    total = total + precio
 })
 
 const btnPrecio = document.querySelector("#botonCalculo")
@@ -141,6 +193,8 @@ const precioTotal = () => {
 
 btnPrecio.addEventListener("click", precioTotal)
 
+// Codigos de productos
+
 const btnLink = document.querySelector("#botonLink")
 
 btnLink.addEventListener("click", () => {
@@ -148,5 +202,5 @@ btnLink.addEventListener("click", () => {
     localStorage.setItem("prendas", prendasJSON)
 })
 
-console.log(carrito)
+
 
