@@ -37,7 +37,6 @@ function calculate(){
        cantidadEl_two.value = (cantidadEl_one.value * taza).toFixed(2);
 
     } );
-    
 }
 
 //Event listeners
