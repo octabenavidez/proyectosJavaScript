@@ -35,7 +35,6 @@ function calculate(){
        cambioEl.innerText = `1 ${moneda_one} = ${taza} ${moneda_two}`;
 
        cantidadEl_two.value = (cantidadEl_one.value * taza).toFixed(2);
-
     } );
 }
 
