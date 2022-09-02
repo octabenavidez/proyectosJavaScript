@@ -22,7 +22,6 @@ const cantidadEl_two = document.getElementById('cantidad-dos');
 const cambioEl = document.getElementById('cambio');
 const tazaEl = document.getElementById('taza');
 
-
 // Fetch Exchange Rate api
 function calculate(){
     const moneda_one = monedaEl_one.value;
@@ -54,9 +53,7 @@ taza.addEventListener('click', () =>{
     calculate();
 } );
 
-
 calculate();
-
 
 // Reconocimiento de usuario
 
