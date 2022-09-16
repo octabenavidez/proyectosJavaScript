@@ -78,7 +78,7 @@ submit.addEventListener("click", () =>{
         icon: 'error',
         title: 'Oops...',
         text: 'Escribiste un caracter vacio'
-    }), submit.value = "Reintenta escribir tu nombre", nomUsuario.innerText = "")
+    }), submit.value = "Reintenta escribir tu nombre")
     :
     Swal.fire({
         title: '¿Estas seguro de que quieres guardar este nombre?',
@@ -131,6 +131,7 @@ function crearEnTabla(pr) {
 btnGorro.addEventListener("click", () => {
     const nuevaPrenda = new Prenda (4, "gorro", 50, "BO90")
     nuevaPrenda.calcularIva()
+    const {precio} = nuevaPrenda
     carrito.push(nuevaPrenda)
 
     const prodAniadido = document.querySelector("#productoAniadido")
@@ -143,7 +144,7 @@ btnGorro.addEventListener("click", () => {
     setTimeout(ocultarVentana, 500)
 
     crearEnTabla(nuevaPrenda)
-    total = total + nuevaPrenda.precio
+    total = total + precio
 })
 
 btnGorra.addEventListener("click", () => {
@@ -207,6 +208,7 @@ const btnPrecio = document.querySelector("#botonCalculo")
 
 const precioTotal = () => {
     const trNuevo = document.createElement("tr")
+    trNuevo.className = "trNuevo"
 
     const tdVacio = document.createElement("td")
     tdVacio.className = "precioFinal"
@@ -224,6 +226,17 @@ const precioTotal = () => {
 }
 
 btnPrecio.addEventListener("click", precioTotal)
+
+const btnCerrar = document.querySelector("#botonCerrar")
+
+const reinicioPrecioTotal = () => {
+    const tdEliminado = document.querySelector(".trNuevo")
+    tdEliminado.remove()
+
+    btnPrecio.className = "btn btn-secondary"
+}
+
+btnCerrar.addEventListener("click", reinicioPrecioTotal)
 
 // Codigos de productos
 
