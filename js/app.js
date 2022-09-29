@@ -247,5 +247,12 @@ btnLink.addEventListener("click", () => {
     localStorage.setItem("prendas", prendasJSON)
 })
 
+// Prevenir accion de terminar pedido en caso de que no haya productos
+btnTerminar.addEventListener("click", (e) => {
+    if(carrito.length < 1){
+        e.preventDefault();
+    }
+})
+
 // Para el localstorage del carrito
 renderDelCarrito();
