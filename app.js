@@ -1,20 +1,4 @@
-// Clase
-
-class Prenda {
-    constructor (id, producto, precio, codigo){
-        this.id = id
-        this.producto = producto
-        this.precio = precio
-        this.codigo = codigo
-    }
-
-    calcularIva(){
-        this.precio = this.precio * 1.21
-    }
-}
-
 // Api con fetch
-
 const monedaEl_one = document.getElementById('moneda-uno');
 const monedaEl_two = document.getElementById('moneda-dos');
 const cantidadEl_one = document.getElementById('cantidad-uno');
@@ -54,11 +38,10 @@ taza.addEventListener('click', () =>{
 calculate();
 
 // Reconocimiento de usuario
-
-const nomUsuario = document.querySelector("#nombreUsuario")
-const localUsuario = localStorage.getItem("Usuario")
-const submit = document.querySelector("#submit")
-const usuario = document.querySelector("#usuario")
+const nomUsuario = document.querySelector("#nombreUsuario");
+const localUsuario = localStorage.getItem("Usuario");
+const submit = document.querySelector("#submit");
+const usuario = document.querySelector("#usuario");
 
 localUsuario === null ? 
 Swal.fire(
@@ -67,11 +50,11 @@ Swal.fire(
     'info'
 )
 : 
-nomUsuario.innerText = "Bienvenido " + localUsuario + " a la página oficial de ventas de Bad Bunny"
+nomUsuario.innerText = "Bienvenido " + localUsuario + " a la página oficial de ventas de Bad Bunny";
 nomUsuario.classList = "text-center container";
 
 submit.addEventListener("click", () =>{
-    const value = usuario.value
+    const value = usuario.value;
 
     value === "" ? 
     (Swal.fire({
@@ -86,160 +69,174 @@ submit.addEventListener("click", () =>{
         showCancelButton: true,
         confirmButtonText: 'Guardar',
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          location.reload() 
+          location.reload(); 
         }
       })  
 
-    localStorage.setItem("Usuario", value)
+    localStorage.setItem("Usuario", value);
 })
 
-// Carrito
+// Generando productos
+const contenedorPrendas = document.querySelector('#contenedor-prendas');
 
-let carrito = []
-let total = 0
+stockPrendas.forEach((producto) => {
+    const div = document.createElement('div');
+    div.className = ('card m-2');
+    div.innerHTML = `
+        <img src=${producto.img} class="card-img-top" alt="...">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+            <h5 class="card-title">${producto.producto}</h5>
+            <p class="card-text">$${producto.precio}</p>
+            <button id="agregar-${producto.id}" class="btn btn-primary botonPrenda">Agregar al carrito</button>
+        </div>
+    `
+    contenedorPrendas.append(div)
 
-const btnGorro = document.querySelector("#botonGorro")
-const btnGorra = document.querySelector("#botonGorra")
-const btnRemera = document.querySelector("#botonRemera")
-const btnBuzo = document.querySelector("#botonBuzo")
+    // Mensaje (producto añadido) y generar carrito
+    const botonPrenda = document.querySelector(`#agregar-${producto.id}`);
 
-const listaPrendas = document.querySelector("table")
-
-function crearEnTabla(pr) {
-    const tr = document.createElement("tr")
+    botonPrenda.addEventListener('click', () => {
+        const prodAniadido = document.querySelector("#productoAniadido");
+        prodAniadido.classList.toggle("quitar");
     
-    const tdProducto = document.createElement("td")
-
-    const tdPrecio = document.createElement("td")
-
-    const {producto, precio} = pr
-
-    tdProducto.className = "lista"
-    tdProducto.innerText = producto
+        const ocultarVentana = () => {
+            prodAniadido.className = "aniadido quitar";
+        }
     
-    tdPrecio.className = "lista"
-    tdPrecio.innerText = "$" + precio 
-    
-    tr.append(tdProducto)
-    tr.append(tdPrecio)
-    
-    listaPrendas.append(tr)
-} 
+        setTimeout(ocultarVentana, 500);
 
-btnGorro.addEventListener("click", () => {
-    const nuevaPrenda = new Prenda (4, "gorro", 50, "BO90")
-    nuevaPrenda.calcularIva()
-    const {precio} = nuevaPrenda
-    carrito.push(nuevaPrenda)
+        agregarAlCarrito(producto.id);
+    })
+});
 
-    const prodAniadido = document.querySelector("#productoAniadido")
-    prodAniadido.classList.toggle("quitar")
-
-    const ocultarVentana = () => {
-        prodAniadido.className = "aniadido quitar"
-    }
-
-    setTimeout(ocultarVentana, 500)
-
-    crearEnTabla(nuevaPrenda)
-    total = total + precio
-})
-
-btnGorra.addEventListener("click", () => {
-    const nuevaPrenda = new Prenda(5, "gorra", 75, "KAI2")
-    nuevaPrenda.calcularIva()
-    const {precio} = nuevaPrenda
-    carrito.push(nuevaPrenda)
-
-    const prodAniadido = document.querySelector("#productoAniadido")
-    prodAniadido.classList.toggle("quitar")
-
-    const ocultarVentana = () => {
-        prodAniadido.className = "aniadido quitar"
-    }
-
-    setTimeout(ocultarVentana, 500)
-
-    crearEnTabla(nuevaPrenda)
-    total = total + precio
-})
-
-btnRemera.addEventListener("click", () => {
-    const nuevaPrenda = new Prenda(1, "remera", 200, "ML44")
-    nuevaPrenda.calcularIva()
-    const {precio} = nuevaPrenda
-    carrito.push(nuevaPrenda)
-
-    const prodAniadido = document.querySelector("#productoAniadido")
-    prodAniadido.classList.toggle("quitar")
-
-    const ocultarVentana = () => {
-        prodAniadido.className = "aniadido quitar"
-    }
-
-    setTimeout(ocultarVentana, 500)
-
-    crearEnTabla(nuevaPrenda)
-    total = total + precio
-})
-
-btnBuzo.addEventListener("click", () => {
-    const nuevaPrenda = new Prenda(3, "buzo", 250, "JU22")
-    nuevaPrenda.calcularIva()
-    const {precio} = nuevaPrenda
-    carrito.push(nuevaPrenda)
-
-    const prodAniadido = document.querySelector("#productoAniadido")
-    prodAniadido.classList.toggle("quitar")
-
-    const ocultarVentana = () => {
-        prodAniadido.className = "aniadido quitar"
-    }
-
-    setTimeout(ocultarVentana, 500)
-
-    crearEnTabla(nuevaPrenda)
-    total = total + precio
-})
-
+// Generando el carrito
+const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+const listaPrendas = document.querySelector("tbody");
+const btnVaciar = document.querySelector('#botonVaciar');
+const contadorPrendas = document.querySelector('#contadorPrendas');
+const btnCerrar = document.querySelector("#botonCerrar");
 const btnPrecio = document.querySelector("#botonCalculo")
+const btnCarrito = document.querySelector("#botonCarrito")
 
-const precioTotal = () => {
-    const trNuevo = document.createElement("tr")
-    trNuevo.className = "trNuevo"
-
-    const tdVacio = document.createElement("td")
-    tdVacio.className = "precioFinal"
-    tdVacio.innerText = "Precio Total(Incluye IVA):"
-
-    const tdPrecio = document.createElement("td")
-    tdPrecio.className = "precioFinal"
-    tdPrecio.innerText = "$" + total 
-
-    trNuevo.append(tdVacio)
-    trNuevo.append(tdPrecio)
-
-    listaPrendas.append(trNuevo)
-    btnPrecio.className = "quitar"
+// Agregar o quitar vaciar carrito
+const toggleVaciar = () => {
+    if(!carrito.length){
+        btnVaciar.classList.add('quitar');
+        btnPrecio.classList.add('quitar');
+    }
 }
 
-btnPrecio.addEventListener("click", precioTotal)
+btnCarrito.addEventListener('click', toggleVaciar);
 
-const btnCerrar = document.querySelector("#botonCerrar")
+// Agregar prendas al carrito
+const agregarAlCarrito = (id) => {
+    const prendaEnCarrito = carrito.find((prod) => prod.id === id);
 
-const reinicioPrecioTotal = () => {
-    const tdEliminado = document.querySelector(".trNuevo")
-    tdEliminado.remove()
+    if(prendaEnCarrito){
+        prendaEnCarrito.cantidad += 1;
+    } else{
+        const prenda = stockPrendas.find((prod) => prod.id === id);
 
-    btnPrecio.className = "btn btn-secondary"
+        carrito.push({
+            ...prenda,
+            cantidad: 1
+        });
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    renderDelCarrito();
 }
 
-btnCerrar.addEventListener("click", reinicioPrecioTotal)
+// Renderizado de cada elemento del carrito
+const renderDelCarrito = () => {
+    listaPrendas.innerHTML = "";
+
+    carrito.forEach((prod) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="lista">${prod.producto}</td>
+            <td class="lista">$${prod.precio}</td>
+            <td class="lista">${prod.cantidad}</td>
+            <td class="tdIcono" onclick="eliminarPrenda(${prod.id})"><img src="img/trash-outline.svg" alt="Icono basura"></td>
+        `
+        listaPrendas.append(tr);
+    })
+
+    // Actualizar Contador de prendas
+    contadorPrendas.innerHTML = `${carrito.length}`
+}
+
+// Borrar elemento del array
+const eliminarPrenda = (id) => {
+    const producto = carrito.find((prod) => prod.id === id);
+
+    if(producto.cantidad > 1){
+        producto.cantidad -= 1;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        renderDelCarrito();
+        return
+    }
+
+    const indice = carrito.indexOf(producto);
+    carrito.splice(indice, 1);
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    renderDelCarrito();
+}
+
+// Vaciar Carrito
+const vaciarCarrito = () => {
+    carrito.length = 0;
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    renderDelCarrito();
+}
+
+btnVaciar.addEventListener('click', vaciarCarrito);
+
+//Precio total carrito
+const actualizarTotal = () => {
+    const tr = document.createElement('tr');
+    const total = carrito.reduce((acc, prod) => acc += (prod.precio * prod.cantidad), 0)
+    tr.className = "trNuevo";
+    tr.innerHTML = `
+        <td class="precioFinal">Precio Total(Incluye IVA):</td>
+        <td class="precioFinal">$${total}</td>
+    `
+
+    listaPrendas.append(tr);
+    btnPrecio.className = "quitar";
+    btnVaciar.className = "quitar";
+    const botonEliminar = document.querySelectorAll('.tdIcono');
+    if(botonEliminar.length > 0){
+        botonEliminar.forEach((icono) => {
+            icono.classList.add('quitar');
+        })
+    }
+}
+
+btnPrecio.addEventListener("click", actualizarTotal);
+
+// Reinicio al cerrar modal
+const reinicioCarrito = () => {
+    const tdEliminado = document.querySelector(".trNuevo");
+    if(tdEliminado !== null){
+        tdEliminado.remove();
+    }
+
+    btnPrecio.className = "btn btn-secondary";
+    btnVaciar.className = "btn btn-danger";
+    const botonEliminar = document.querySelectorAll('.tdIcono');
+    botonEliminar.forEach((icono) => {
+        icono.classList.remove('quitar');
+    })
+}
+
+btnCerrar.addEventListener("click", reinicioCarrito);
 
 // Codigos de productos
-
 const btnLink = document.querySelector("#botonLink")
 
 btnLink.addEventListener("click", () => {
@@ -247,5 +244,5 @@ btnLink.addEventListener("click", () => {
     localStorage.setItem("prendas", prendasJSON)
 })
 
-
-
+// Para el localstorage del carrito
+renderDelCarrito();

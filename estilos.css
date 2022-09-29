@@ -39,3 +39,13 @@ body{
     text-decoration: none;
     color: red;    
 }
+
+.card{
+    width: 18rem;
+    text-transform: uppercase;
+}
+
+#contadorPrendas{
+    font-size: 2rem;
+}
+
