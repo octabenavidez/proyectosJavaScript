@@ -1,13 +1,11 @@
+// Recuperando localstorage y creando tabla y mensaje
 const prendaEnLs = localStorage.getItem("prendas");
-
 const carrito = JSON.parse(prendaEnLs);
-
 const tabla = document.querySelector("#segundaTabla");
-
 const mensaje = document.querySelector("#mensaje");
-
 const precios = [];
 
+// Render a la tabla
 for (const prenda of carrito){
     const {producto, codigo, precio} = prenda;
 
@@ -22,6 +20,7 @@ for (const prenda of carrito){
     tabla.append(tr);
 }
 
+// Precio maximo entre los productos
 function precioMaximo () {
     const h3 = document.createElement("h3");
     h3.classList = "text-center";

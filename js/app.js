@@ -116,14 +116,16 @@ const listaPrendas = document.querySelector("tbody");
 const btnVaciar = document.querySelector('#botonVaciar');
 const contadorPrendas = document.querySelector('#contadorPrendas');
 const btnCerrar = document.querySelector("#botonCerrar");
-const btnPrecio = document.querySelector("#botonCalculo")
-const btnCarrito = document.querySelector("#botonCarrito")
+const btnPrecio = document.querySelector("#botonCalculo");
+const btnCarrito = document.querySelector("#botonCarrito");
+const btnTerminar = document.querySelector("#botonTerminar");
 
-// Agregar o quitar vaciar carrito
+// Eliminar botones si no hay elementos
 const toggleVaciar = () => {
     if(!carrito.length){
         btnVaciar.classList.add('quitar');
         btnPrecio.classList.add('quitar');
+        btnTerminar.classList.add('quitar');
     }
 }
 
@@ -228,6 +230,7 @@ const reinicioCarrito = () => {
 
     btnPrecio.className = "btn btn-secondary";
     btnVaciar.className = "btn btn-danger";
+    btnTerminar.className = "btn btn-info w-25 mx-4";
     const botonEliminar = document.querySelectorAll('.tdIcono');
     botonEliminar.forEach((icono) => {
         icono.classList.remove('quitar');
